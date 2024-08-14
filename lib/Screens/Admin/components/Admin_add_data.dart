@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/Admin/components/Admin_window.dart';
 import 'package:flutter_auth/constants.dart'; // ตรวจสอบว่ามีการนำเข้า constants.dart
 
 class AdminAddData extends StatefulWidget {
@@ -164,7 +165,15 @@ class _AdminAddDataState extends State<AdminAddData> {
                 Center(
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pop(context); // ย้อนกลับไปหน้าก่อนหน้า
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return AdminWindow();
+                          },
+                        ),
+                      ); // ย้อนกลับไปหน้าก่อนหน้า
                     },
                     child: const Text('ย้อนกลับ'),
                     style: TextButton.styleFrom(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Admin/components/Admin_add_data.dart';
+import 'package:flutter_auth/Screens/Admin/components/Admin_delete_data.dart';
 import 'package:flutter_auth/constants.dart';
 
 class AdminWindow extends StatelessWidget {
@@ -61,6 +62,15 @@ class AdminWindow extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return AdminDeleteData();
+                          },
+                        ),
+                      );
                       // ลบข้อมูล
                     },
                     child: Text('ลบ'),
