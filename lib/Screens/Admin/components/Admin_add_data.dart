@@ -51,6 +51,7 @@ class _AdminAddDataState extends State<AdminAddData> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
+                    color: Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
                 SizedBox(height: 20),
@@ -59,6 +60,7 @@ class _AdminAddDataState extends State<AdminAddData> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
+                    color: Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
                 SizedBox(height: 10),
@@ -118,6 +120,7 @@ class _AdminAddDataState extends State<AdminAddData> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
+                    color: Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
                 SizedBox(height: 10),
@@ -154,7 +157,7 @@ class _AdminAddDataState extends State<AdminAddData> {
                       child: Text(
                         "เพิ่มข้อมูล",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: const Color.fromARGB(255, 0, 0, 0),
                           fontSize: 20,
                         ),
                       ),
@@ -177,8 +180,8 @@ class _AdminAddDataState extends State<AdminAddData> {
                     },
                     child: const Text('ย้อนกลับ'),
                     style: TextButton.styleFrom(
-                      foregroundColor:
-                          Colors.blue, // เปลี่ยนสีข้อความปุ่มเป็นสีน้ำเงิน
+                      foregroundColor: const Color.fromARGB(
+                          255, 0, 0, 0), // เปลี่ยนสีข้อความปุ่มเป็นสีน้ำเงิน
                     ),
                   ),
                 ),
