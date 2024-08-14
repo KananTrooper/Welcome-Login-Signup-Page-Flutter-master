@@ -8,10 +8,7 @@ class AdminWindow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Admin Window',
-          style: const TextStyle(color: Colors.white),
-        ),
+        title: Text('Admin Window'),
         backgroundColor: kPrimaryColor,
       ),
       body: Padding(

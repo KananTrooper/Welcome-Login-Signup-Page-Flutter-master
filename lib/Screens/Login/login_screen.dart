@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Admin/AdminLogin.dart';
-import 'package:flutter_auth/Screens/Guest/Guest.dart';
-
+import 'package:flutter_auth/Screens/Guert/Guert.dart';
 import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/responsive.dart';
 
@@ -74,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return const Guest();
+                      return const Guert();
                     },
                   ),
                 );
