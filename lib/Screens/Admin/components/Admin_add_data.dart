@@ -71,9 +71,18 @@ class _AdminAddDataState extends State<AdminAddData> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
+                    color: Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
                 SizedBox(height: 20),
+                Text(
+                  "ชื่อผู้ป่วย",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(height: 10),
                 _buildTextField(_nameController, "ชื่อผู้ป่วย"),
                 SizedBox(height: 20),
                 Row(
@@ -213,6 +222,14 @@ class _AdminAddDataState extends State<AdminAddData> {
                   ],
                 ),
                 SizedBox(height: 20),
+                Text(
+                  "ที่อยู่",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(height: 10),
                 _buildTextField(_addressController, "ที่อยู่"),
                 SizedBox(height: 20),
                 Row(
@@ -252,7 +269,7 @@ class _AdminAddDataState extends State<AdminAddData> {
                       child: Text(
                         "เพิ่มข้อมูล",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: const Color.fromARGB(255, 0, 0, 0),
                           fontSize: 20,
                         ),
                       ),
@@ -275,7 +292,8 @@ class _AdminAddDataState extends State<AdminAddData> {
                     },
                     child: const Text('ย้อนกลับ'),
                     style: TextButton.styleFrom(
-                      foregroundColor: Colors.blue,
+                      foregroundColor:
+                          Colors.blue, // เปลี่ยนสีข้อความปุ่มเป็นสีน้ำเงิน
                     ),
                   ),
                 ),
