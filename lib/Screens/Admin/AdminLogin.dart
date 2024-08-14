@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Admin/components/Admin_window.dart';
+import 'package:flutter_auth/Screens/Guest/Guest.dart';
 
-import 'package:flutter_auth/Screens/Guert/Guert.dart';
 import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/constants.dart';
 
@@ -73,7 +73,7 @@ class AdminLogin extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return const Guert();
+                      return const Guest();
                     },
                   ),
                 );

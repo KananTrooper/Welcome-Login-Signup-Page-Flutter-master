@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Admin/AdminLogin.dart';
 import '../../../constants.dart';
-import '../../Guert/Guert.dart';
+import '../../Guest/Guest.dart';
 import '../../Login/login_screen.dart';
 import '../../Signup/signup_screen.dart';
 
@@ -73,7 +73,7 @@ class LoginAndSignupBtn extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return const Guert();
+                  return const Guest();
                 },
               ),
             );

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Admin/AdminLogin.dart';
 import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 
-class Guert extends StatelessWidget {
-  const Guert({Key? key}) : super(key: key);
+class Guest extends StatelessWidget {
+  const Guest({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class Guert extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return const Guert();
+                      return const Guest();
                     },
                   ),
                 );
