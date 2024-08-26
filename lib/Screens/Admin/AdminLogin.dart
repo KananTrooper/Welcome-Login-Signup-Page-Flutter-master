@@ -99,51 +99,61 @@ class AdminLogin extends StatelessWidget {
                 height: 200, // Adjust image size as needed
               ),
               const SizedBox(height: 20),
-              TextField(
-                controller: _usernameController,
-                decoration: InputDecoration(
-                  labelText: 'อีเมล์',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  prefixIcon: const Icon(Icons.person),
-                ),
-              ),
-              const SizedBox(height: 20),
-              TextField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  labelText: 'พาสเวิร์ด',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  prefixIcon: const Icon(Icons.lock),
-                ),
-                obscureText: true,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Action when the button is pressed
-                  print('Username: ${_usernameController.text}');
-                  print('Password: ${_passwordController.text}');
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return AdminWindow();
-                      },
+              SizedBox(
+                width: 500.0, // กำหนดความกว้างของช่อง
+                child: TextField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(
+                    labelText: 'อีเมล์',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
                     ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
+                    prefixIcon: const Icon(Icons.person),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
-                child: const Text('ล็อคอิน'),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: 500.0, // กำหนดความกว้างของช่อง
+                child: TextField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    labelText: 'พาสเวิร์ด',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    prefixIcon: const Icon(Icons.lock),
+                  ),
+                  obscureText: true,
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: 500.0, // กำหนดความกว้างของปุ่ม
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Action when the button is pressed
+                    print('Username: ${_usernameController.text}');
+                    print('Password: ${_passwordController.text}');
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return AdminWindow();
+                        },
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    backgroundColor: Colors.purple, // เปลี่ยนสีของปุ่มได้ที่นี่
+                  ),
+                  child: const Text('ล็อคอิน'),
+                ),
               ),
               const SizedBox(height: 20),
               TextButton(
