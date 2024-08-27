@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/Admin/AdminLogin.dart';
 import 'package:flutter_auth/Screens/Admin/components/Admin_add_data.dart';
 import 'package:flutter_auth/Screens/Admin/components/Admin_delete_data.dart';
+import 'package:flutter_auth/Screens/Guest/Guest.dart';
+import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/constants.dart';
 
 class AdminWindow extends StatelessWidget {
@@ -13,6 +16,69 @@ class AdminWindow extends StatelessWidget {
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: kPrimaryColor,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(
+                        'images/9ac210683e3fdbae7d5e8af81befc692.jpg'),
+                    fit: BoxFit.cover),
+                color: Color.fromARGB(255, 184, 66, 231),
+              ),
+              child: Text(
+                'เมนู',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.exit_to_app),
+              title: Text('ออกจากระบบ'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const WelcomeScreen();
+                }));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('แอดมิน'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return AdminLogin();
+                    },
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.qr_code),
+              title: Text('ผู้เยี่ยมชม'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const Guest();
+                    },
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0), // เพิ่ม Padding รอบๆ หน้าจอ
