@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Admin/components/Admin_window.dart';
-import 'package:flutter_auth/constants.dart'; // ตรวจสอบว่ามีการนำเข้า constants.dart
+import 'package:flutter_auth/constants.dart';
 
 class AdminAddData extends StatefulWidget {
   const AdminAddData({Key? key}) : super(key: key);
@@ -57,247 +57,243 @@ class _AdminAddDataState extends State<AdminAddData> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        //title: Text('เพิ่มข้อมูลผู้ป่วย'),
       ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(16),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "เพิ่มข้อมูลผู้ป่วย",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  "ชื่อผู้ป่วย",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
-                ),
-                SizedBox(height: 10),
-                _buildTextField(_nameController, "ชื่อผู้ป่วย"),
-                SizedBox(height: 20),
-                Row(
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 500.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Expanded(
-                      flex: 4,
-                      child: ElevatedButton(
-                        onPressed: () => _selectDate(context),
-                        child: Text(
-                          _selectedDate == null
-                              ? 'เลือกวัน/เดือน/ปี'
-                              : '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}',
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.black,
-                          backgroundColor: Colors.white,
-                          minimumSize: Size(double.infinity, 50),
-                          elevation: 2,
-                        ),
+                    Text(
+                      "เพิ่มข้อมูลผู้ป่วย",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        color: Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
-                    SizedBox(width: 10), // ช่องว่าง 10 พิกเซล
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("เพศ"),
-                          Row(
+                    SizedBox(height: 20),
+
+                    // บรรทัดที่ 1: ชื่อผู้ป่วย
+                    _buildTextField(_nameController, "ชื่อผู้ป่วย"),
+                    SizedBox(height: 20),
+
+                    // บรรทัดที่ 2: เพศและวันเดือนปีเกิด
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("ชาย"),
-                              Radio<String>(
-                                value: 'ชาย',
-                                groupValue: _selectedGender,
-                                onChanged: (String? value) {
-                                  setState(() {
-                                    _selectedGender = value;
-                                  });
-                                },
+                              Text(
+                                "เพศ",
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(width: 10), // ช่องว่าง 10 พิกเซล
-                              Text("หญิง"),
-                              Radio<String>(
-                                value: 'หญิง',
-                                groupValue: _selectedGender,
-                                onChanged: (String? value) {
+                              Row(
+                                children: <Widget>[
+                                  Text("ชาย"),
+                                  Radio<String>(
+                                    value: 'ชาย',
+                                    groupValue: _selectedGender,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        _selectedGender = value;
+                                      });
+                                    },
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text("หญิง"),
+                                  Radio<String>(
+                                    value: 'หญิง',
+                                    groupValue: _selectedGender,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        _selectedGender = value;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          flex: 3,
+                          child: ElevatedButton(
+                            onPressed: () => _selectDate(context),
+                            child: Text(
+                              _selectedDate == null
+                                  ? 'เลือกวัน/เดือน/ปี'
+                                  : '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}',
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.black,
+                              backgroundColor: Colors.white,
+                              minimumSize: Size(double.infinity, 50),
+                              elevation: 2,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+
+                    // บรรทัดที่ 3: สถานะสมรสและสถานะการศึกษา
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                "สถานะสมรส",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Text("โสด"),
+                                  Radio<String>(
+                                    value: 'โสด',
+                                    groupValue: _selectedMaritalStatus,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        _selectedMaritalStatus = value;
+                                      });
+                                    },
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text("สมรส"),
+                                  Radio<String>(
+                                    value: 'สมรส',
+                                    groupValue: _selectedMaritalStatus,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        _selectedMaritalStatus = value;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          flex: 3,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                "สถานะการศึกษา",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              DropdownButton<String>(
+                                value: _selectedEducationStatus,
+                                hint: Text("เลือกสถานะการศึกษา"),
+                                items: <String>[
+                                  'ประถมศึกษา',
+                                  'มัธยมศึกษา',
+                                  'ปริญญาตรี',
+                                  'ปริญญาโท',
+                                  'ปริญญาเอก'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
                                   setState(() {
-                                    _selectedGender = value;
+                                    _selectedEducationStatus = newValue;
                                   });
                                 },
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "สถานะสมรส",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Text("โสด"),
-                              Radio<String>(
-                                value: 'โสด',
-                                groupValue: _selectedMaritalStatus,
-                                onChanged: (String? value) {
-                                  setState(() {
-                                    _selectedMaritalStatus = value;
-                                  });
-                                },
-                              ),
-                              SizedBox(width: 10), // ช่องว่าง 10 พิกเซล
-                              Text("สมรส"),
-                              Radio<String>(
-                                value: 'สมรส',
-                                groupValue: _selectedMaritalStatus,
-                                onChanged: (String? value) {
-                                  setState(() {
-                                    _selectedMaritalStatus = value;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "สถานะการศึกษา",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                          DropdownButton<String>(
-                            value: _selectedEducationStatus,
-                            hint: Text("เลือกสถานะการศึกษา"),
-                            items: <String>[
-                              'ประถมศึกษา',
-                              'มัธยมศึกษา',
-                              'ปริญญาตรี',
-                              'ปริญญาโท',
-                              'ปริญญาเอก'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                _selectedEducationStatus = newValue;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Text(
-                  "ที่อยู่",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
-                ),
-                SizedBox(height: 10),
-                _buildTextField(_addressController, "ที่อยู่"),
-                SizedBox(height: 20),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: _buildTextField(_cityController, "เมือง"),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: _buildTextField(_districtController, "อำเภอ"),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: _buildTextField(_subDistrictController, "ตำบล"),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                _buildTextField(_phoneController, "เบอร์โทรศัพท์"),
-                SizedBox(height: 20),
-                _buildTextField(_relativeAddressController, "ที่อยู่ญาติ"),
-                SizedBox(height: 20),
-                _buildTextField(_medicalConditionController, "โรคประจำตัว"),
-                SizedBox(height: 50),
-                Center(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Handle the form submission logic here
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 184, 66, 231),
-                        elevation: 0,
-                        minimumSize: Size(double.infinity, 50),
-                      ),
-                      child: Text(
-                        "เพิ่มข้อมูล",
-                        style: TextStyle(
-                          color: const Color.fromARGB(255, 0, 0, 0),
-                          fontSize: 20,
                         ),
-                      ),
+                      ],
                     ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Center(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return AdminWindow();
+                    SizedBox(height: 20),
+
+                    // ส่วนข้อมูลอื่นๆ
+                    _buildTextField(_addressController, "ที่อยู่"),
+                    SizedBox(height: 20),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: _buildTextField(_cityController, "เมือง"),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: _buildTextField(_districtController, "อำเภอ"),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child:
+                              _buildTextField(_subDistrictController, "ตำบล"),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    _buildTextField(_phoneController, "เบอร์โทรศัพท์"),
+                    SizedBox(height: 20),
+                    _buildTextField(_relativeAddressController, "ที่อยู่ญาติ"),
+                    SizedBox(height: 20),
+                    _buildTextField(_medicalConditionController, "โรคประจำตัว"),
+                    SizedBox(height: 50),
+                    Center(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Handle the form submission logic here
                           },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 184, 66, 231),
+                            elevation: 0,
+                            minimumSize: Size(double.infinity, 50),
+                          ),
+                          child: Text(
+                            "เพิ่มข้อมูล",
+                            style: TextStyle(
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
-                      );
-                    },
-                    child: const Text('ย้อนกลับ'),
-                    style: TextButton.styleFrom(
-                      foregroundColor:
-                          Colors.blue, // เปลี่ยนสีข้อความปุ่มเป็นสีน้ำเงิน
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 20),
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return AdminWindow();
+                              },
+                            ),
+                          );
+                        },
+                        child: const Text('ย้อนกลับ'),
+                        style: TextButton.styleFrom(
+                          foregroundColor:
+                              Colors.blue, // เปลี่ยนสีข้อความปุ่มเป็นสีน้ำเงิน
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
