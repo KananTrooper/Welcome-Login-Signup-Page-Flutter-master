@@ -14,6 +14,8 @@ class _AdminAddDataState extends State<AdminAddData> {
   DateTime? _selectedDate;
   String? _selectedMaritalStatus;
   String? _selectedEducationStatus;
+  String? _selectedPrefix;
+  String? _selectedBloodGroup;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
@@ -21,10 +23,11 @@ class _AdminAddDataState extends State<AdminAddData> {
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _subDistrictController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _relativeAddressController =
+  final TextEditingController _relativePhoneController =
       TextEditingController();
   final TextEditingController _medicalConditionController =
       TextEditingController();
+  final TextEditingController _drugAllergyController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
 
   void _selectDate(BuildContext context) async {
@@ -78,8 +81,50 @@ class _AdminAddDataState extends State<AdminAddData> {
                     ),
                     SizedBox(height: 20),
 
-                    // บรรทัดที่ 1: ชื่อผู้ป่วย
-                    _buildTextField(_nameController, "ชื่อผู้ป่วย"),
+                    // ปุ่มเพิ่มรูปภาพ
+                    ElevatedButton(
+                      onPressed: () {
+                        // โค้ดสำหรับเพิ่มรูปภาพ
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        "เพิ่มรูปภาพ",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+
+                    // ตัวเลือกคำนำหน้าชื่อ
+                    Row(
+                      children: [
+                        DropdownButton<String>(
+                          value: _selectedPrefix,
+                          hint: Text("นาย/นาง/นางสาว"),
+                          items: <String>[
+                            'นาย',
+                            'นาง',
+                            'นางสาว',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              _selectedPrefix = newValue;
+                            });
+                          },
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child:
+                              _buildTextField(_nameController, "ชื่อผู้ป่วย"),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 20),
 
                     // บรรทัดที่ 2: เพศและวันเดือนปีเกิด
@@ -222,6 +267,46 @@ class _AdminAddDataState extends State<AdminAddData> {
                     ),
                     SizedBox(height: 20),
 
+                    // ปุ่มเลือกกรุ๊ปเลือด
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "กรุ๊ปเลือด",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        DropdownButton<String>(
+                          value: _selectedBloodGroup,
+                          hint: Text("เลือกกรุ๊ปเลือด"),
+                          items: <String>[
+                            'A',
+                            'B',
+                            'AB',
+                            'O',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              _selectedBloodGroup = newValue;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+
+                    // ช่องกรอกโรคประจำตัว
+                    _buildTextField(_medicalConditionController, "โรคประจำตัว"),
+                    SizedBox(height: 20),
+
+                    // ช่องกรอกประวัติแพ้ยา
+                    _buildTextField(_drugAllergyController, "ประวัติแพ้ยา"),
+                    SizedBox(height: 20),
+
                     // ส่วนข้อมูลอื่นๆ
                     _buildTextField(_addressController, "ที่อยู่"),
                     SizedBox(height: 20),
@@ -242,12 +327,33 @@ class _AdminAddDataState extends State<AdminAddData> {
                       ],
                     ),
                     SizedBox(height: 20),
-                    _buildTextField(_phoneController, "เบอร์โทรศัพท์"),
+
+                    // แก้ไขช่องกรอกเบอร์โทรศัพท์ให้มีตัวอย่างแสดง
+                    _buildTextField(_phoneController,
+                        "เบอร์โทรศัพท์ (ตัวอย่าง: 0812345678)"),
                     SizedBox(height: 20),
-                    _buildTextField(_relativeAddressController, "ที่อยู่ญาติ"),
+
+                    // แก้ไขช่องกรอก "ที่อยู่ญาติ" เป็น "เบอร์ติดต่อญาติ"
+                    _buildTextField(_relativePhoneController,
+                        "เบอร์ติดต่อญาติ (ตัวอย่าง: 0812345678)"),
                     SizedBox(height: 20),
-                    _buildTextField(_medicalConditionController, "โรคประจำตัว"),
-                    SizedBox(height: 50),
+
+                    // เพิ่มปุ่ม "ตำแหน่งที่อยู่"
+                    ElevatedButton(
+                      onPressed: () {
+                        // โค้ดสำหรับตำแหน่งที่อยู่
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        "ตำแหน่งที่อยู่",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+
+                    // ปุ่มเพิ่มข้อมูล
                     Center(
                       child: SizedBox(
                         width: double.infinity,
@@ -271,6 +377,8 @@ class _AdminAddDataState extends State<AdminAddData> {
                       ),
                     ),
                     SizedBox(height: 20),
+
+                    // ปุ่มย้อนกลับ
                     Center(
                       child: TextButton(
                         onPressed: () {
@@ -286,8 +394,7 @@ class _AdminAddDataState extends State<AdminAddData> {
                         },
                         child: const Text('ย้อนกลับ'),
                         style: TextButton.styleFrom(
-                          foregroundColor:
-                              Colors.blue, // เปลี่ยนสีข้อความปุ่มเป็นสีน้ำเงิน
+                          foregroundColor: Colors.blue,
                         ),
                       ),
                     ),
