@@ -20,7 +20,7 @@ class SignUpForm extends StatelessWidget {
             cursorColor: kPrimaryColor,
             onSaved: (email) {},
             decoration: const InputDecoration(
-              hintText: " อีเมลล์ ",
+              hintText: " อีเมล ",
               prefixIcon: Padding(
                 padding: EdgeInsets.all(defaultPadding),
                 child: Icon(Icons.person),

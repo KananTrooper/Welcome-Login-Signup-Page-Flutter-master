@@ -26,7 +26,7 @@ class LoginAndSignupBtn extends StatelessWidget {
             );
           },
           child: Text(
-            "ล็อคอิน".toUpperCase(),
+            "เข้าใช้งาน".toUpperCase(),
           ),
         ),
         const SizedBox(height: 16),
@@ -63,7 +63,7 @@ class LoginAndSignupBtn extends StatelessWidget {
             );
           },
           child: Text(
-            "แอดมิน".toUpperCase(),
+            "ผู้ดูแล".toUpperCase(),
           ),
         ),
         const SizedBox(height: 16),
@@ -83,7 +83,7 @@ class LoginAndSignupBtn extends StatelessWidget {
             elevation: 0,
           ),
           child: Text(
-            "ผู้เยี่ยมชม".toUpperCase(),
+            "ผู้ป่วย".toUpperCase(),
             style: const TextStyle(color: Colors.black),
           ),
         ),

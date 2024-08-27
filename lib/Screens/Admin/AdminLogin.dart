@@ -16,8 +16,8 @@ class AdminLogin extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        // title: Text(
-        // 'WELCOME TO (แอปพลิเคชันช่วยหาเส้นทางกลับบ้านของผู้ป่วยอัลไซเมอร์ด้วยคิวอาร์โค้ด)'),
+        title: Text(
+            'ยินดีต้อนรับ (แอปพลิเคชันช่วยหาเส้นทางกลับบ้านของผู้ป่วยอัลไซเมอร์ด้วยคิวอาร์โค้ด)'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -90,7 +90,7 @@ class AdminLogin extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text(
-                'แอดมิน',
+                'ผู้ดูแล',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
@@ -104,7 +104,7 @@ class AdminLogin extends StatelessWidget {
                 child: TextField(
                   controller: _usernameController,
                   decoration: InputDecoration(
-                    labelText: 'อีเมล์',
+                    labelText: 'อีเมล',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
@@ -118,7 +118,7 @@ class AdminLogin extends StatelessWidget {
                 child: TextField(
                   controller: _passwordController,
                   decoration: InputDecoration(
-                    labelText: 'พาสเวิร์ด',
+                    labelText: 'รหัสผ่าน',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
@@ -133,8 +133,8 @@ class AdminLogin extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     // Action when the button is pressed
-                    print('Username: ${_usernameController.text}');
-                    print('Password: ${_passwordController.text}');
+                    print('ชื่อผู้ใช้: ${_usernameController.text}');
+                    print('รหัสผ่าน: ${_passwordController.text}');
 
                     Navigator.push(
                       context,
@@ -152,7 +152,7 @@ class AdminLogin extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     backgroundColor: Colors.purple, // เปลี่ยนสีของปุ่มได้ที่นี่
                   ),
-                  child: const Text('ล็อคอิน'),
+                  child: const Text('เข้าใช้งาน'),
                 ),
               ),
               const SizedBox(height: 20),

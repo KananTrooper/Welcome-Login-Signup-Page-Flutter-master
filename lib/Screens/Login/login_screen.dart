@@ -17,8 +17,8 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 184, 66, 231),
-        //title: Text(
-        //  'WELCOME TO (แอปพลิเคชันช่วยหาเส้นทางกลับบ้านของผู้ป่วยอัลไซเมอร์ด้วยคิวอาร์โค้ด)'),
+        title: Text(
+            'ยินดีต้อนรับ (แอปพลิเคชันช่วยหาเส้นทางกลับบ้านของผู้ป่วยอัลไซเมอร์ด้วยคิวอาร์โค้ด)'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.account_circle),
-              title: Text('แอดมิน'),
+              title: Text('ผู้ดูแล'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -67,7 +67,7 @@ class LoginScreen extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.qr_code),
-              title: Text('ผู้เยี่ยมชม'),
+              title: Text('ผู้ป่วย'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(

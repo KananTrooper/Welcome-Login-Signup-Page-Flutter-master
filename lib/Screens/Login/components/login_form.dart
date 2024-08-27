@@ -20,7 +20,7 @@ class LoginForm extends StatelessWidget {
             cursorColor: kPrimaryColor,
             onSaved: (email) {},
             decoration: const InputDecoration(
-              hintText: "อีเมลล์",
+              hintText: "อีเมล",
               prefixIcon: Padding(
                 padding: EdgeInsets.all(defaultPadding),
                 child: Icon(Icons.person),
@@ -34,7 +34,7 @@ class LoginForm extends StatelessWidget {
               obscureText: true,
               cursorColor: kPrimaryColor,
               decoration: const InputDecoration(
-                hintText: "พาสเวิร์ด",
+                hintText: "รหัสผ่าน",
                 prefixIcon: Padding(
                   padding: EdgeInsets.all(defaultPadding),
                   child: Icon(Icons.lock),
@@ -46,7 +46,7 @@ class LoginForm extends StatelessWidget {
           ElevatedButton(
             onPressed: () {},
             child: Text(
-              "ล็อคอิน".toUpperCase(),
+              "เข้าใช้งาน".toUpperCase(),
             ),
           ),
           const SizedBox(height: defaultPadding),

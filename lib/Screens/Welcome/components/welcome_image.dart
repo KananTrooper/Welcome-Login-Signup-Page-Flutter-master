@@ -14,7 +14,7 @@ class WelcomeImage extends StatelessWidget {
       children: [
         const SizedBox(height: defaultPadding * 2),
         Text(
-          'WELCOME TO (แอปพลิเคชันช่วยหาเส้นทางกลับบ้านของผู้ป่วยอัลไซเมอร์ด้วยคิวอาร์โค้ด)',
+          'ยินดีต้อนรับ (แอปพลิเคชันช่วยหาเส้นทางกลับบ้านของผู้ป่วยอัลไซเมอร์ด้วยคิวอาร์โค้ด)',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,

@@ -13,7 +13,7 @@ class LoginScreenTopImage extends StatelessWidget {
     return Column(
       children: [
         const Text(
-          "ล็อคอิน",
+          "เข้าใช้งาน",
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
