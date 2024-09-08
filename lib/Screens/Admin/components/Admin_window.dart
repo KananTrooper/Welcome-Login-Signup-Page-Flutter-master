@@ -5,8 +5,22 @@ import 'package:flutter_auth/Screens/Admin/components/Admin_delete_data.dart';
 import 'package:flutter_auth/Screens/Guest/Guest.dart';
 import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/constants.dart';
+import 'package:flutter_auth/model/patientdata.dart';
 
-class AdminWindow extends StatelessWidget {
+class AdminWindow extends StatefulWidget {
+  @override
+  _AdminWindowState createState() => _AdminWindowState();
+}
+
+class _AdminWindowState extends State<AdminWindow> {
+  List<PatientData> patientDataList = [];
+
+  void _addPatientData(PatientData patientData) {
+    setState(() {
+      patientDataList.add(patientData);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,11 +95,10 @@ class AdminWindow extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0), // เพิ่ม Padding รอบๆ หน้าจอ
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // แถวของปุ่ม
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -93,9 +106,8 @@ class AdminWindow extends StatelessWidget {
                   width: 100,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
+                    onPressed: () async {
+                      final patientData = await Navigator.push<PatientData>(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
@@ -103,69 +115,88 @@ class AdminWindow extends StatelessWidget {
                           },
                         ),
                       );
-                      // เพิ่มข้อมูล
+                      if (patientData != null) {
+                        _addPatientData(patientData);
+                      }
                     },
                     child: Text('เพิ่ม'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // สีพื้นหลังของปุ่ม
+                      backgroundColor: Colors.blue,
                     ),
                   ),
                 ),
-                SizedBox(width: 10), // เพิ่มระยะห่างระหว่างปุ่ม
-                SizedBox(
-                  width: 100,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // แก้ไขข้อมูล
-                    },
-                    child: Text('แก้ไข'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange, // สีพื้นหลังของปุ่ม
-                    ),
-                  ),
-                ),
-                SizedBox(width: 10), // เพิ่มระยะห่างระหว่างปุ่ม
-                SizedBox(
-                  width: 100,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return AdminDeleteData();
-                          },
-                        ),
-                      );
-                      // ลบข้อมูล
-                    },
-                    child: Text('ลบ'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red, // สีพื้นหลังของปุ่ม
-                    ),
-                  ),
-                ),
+                SizedBox(width: 10),
               ],
             ),
-            SizedBox(
-                height:
-                    20), // เพิ่มระยะห่างระหว่างแถวของปุ่มและพื้นที่แสดงข้อมูล
-            // พื้นที่แสดงข้อมูลที่สามารถปรับขนาดได้ตามหน้าจอ
+            SizedBox(height: 20),
             Expanded(
               child: Container(
-                width: double.infinity, // ใช้พื้นที่ทั้งหมดที่เหลือใน Column
-                color: Colors.white, // สีพื้นหลังของพื้นที่แสดงข้อมูล
-                child: Center(
-                  child: Text(
-                    'ข้อมูลที่จะแสดง',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                  ),
+                width: double.infinity,
+                color: Colors.white,
+                child: ListView.builder(
+                  itemCount: patientDataList.length,
+                  itemBuilder: (context, index) {
+                    final patient = patientDataList[index];
+                    return Card(
+                      elevation: 2.0,
+                      margin: EdgeInsets.symmetric(vertical: 8.0),
+                      child: ListTile(
+                        title: Text('${patient.prefix} ${patient.name}'),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                'เพศ: ${patient.gender}, อายุ: ${DateTime.now().year - patient.birthDate.year} ปี'),
+                            Text('กรุ๊ปเลือด: ${patient.bloodGroup}'),
+                            Text(
+                                'โรคประจำตัว: ${patient.medicalCondition.isNotEmpty ? patient.medicalCondition : "ไม่มี"}'),
+                            Text(
+                                'ประวัติแพ้ยา: ${patient.drugAllergy.isNotEmpty ? patient.drugAllergy : "ไม่มี"}'),
+                            Text(
+                                'ที่อยู่: ${patient.address}, ${patient.city}, ${patient.district}, ${patient.subDistrict}'),
+                            Text('เบอร์ติดต่อ: ${patient.phone}'),
+                            Text('เบอร์ติดต่อญาติ: ${patient.relativePhone}'),
+                          ],
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.edit, color: Colors.blue),
+                              onPressed: () async {
+                                final updatedPatient =
+                                    await Navigator.push<PatientData>(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AdminAddData(),
+                                    settings: RouteSettings(
+                                      arguments:
+                                          patient, // ส่งข้อมูลผู้ป่วยไปยังหน้ากรอกข้อมูล
+                                    ),
+                                  ),
+                                );
+
+                                if (updatedPatient != null) {
+                                  setState(() {
+                                    patientDataList[index] =
+                                        updatedPatient; // อัพเดตข้อมูลผู้ป่วย
+                                  });
+                                }
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.delete, color: Colors.red),
+                              onPressed: () {
+                                setState(() {
+                                  patientDataList.removeAt(index); // ลบข้อมูล
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

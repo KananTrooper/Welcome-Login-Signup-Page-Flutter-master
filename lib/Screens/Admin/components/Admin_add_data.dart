@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Admin/components/Admin_window.dart';
 import 'package:flutter_auth/constants.dart';
+import 'package:flutter_auth/model/patientdata.dart';
 
 class AdminAddData extends StatefulWidget {
   const AdminAddData({Key? key}) : super(key: key);
@@ -359,7 +360,39 @@ class _AdminAddDataState extends State<AdminAddData> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Handle the form submission logic here
+                            // ตรวจสอบว่ามีข้อมูลสำคัญครบถ้วนหรือไม่
+                            if (_nameController.text.isNotEmpty &&
+                                _selectedGender != null &&
+                                _selectedDate != null) {
+                              // สร้างอ็อบเจกต์ PatientData
+                              final newPatient = PatientData(
+                                name: _nameController.text,
+                                gender: _selectedGender!,
+                                birthDate: _selectedDate!,
+                                maritalStatus: _selectedMaritalStatus ?? '',
+                                educationStatus: _selectedEducationStatus ?? '',
+                                prefix: _selectedPrefix ?? '',
+                                bloodGroup: _selectedBloodGroup ?? '',
+                                medicalCondition:
+                                    _medicalConditionController.text,
+                                drugAllergy: _drugAllergyController.text,
+                                address: _addressController.text,
+                                city: _cityController.text,
+                                district: _districtController.text,
+                                subDistrict: _subDistrictController.text,
+                                phone: _phoneController.text,
+                                relativePhone: _relativePhoneController.text,
+                              );
+
+                              // ส่งข้อมูลกลับไปยังหน้าก่อนหน้า
+                              Navigator.pop(context, newPatient);
+                            } else {
+                              // แสดงการแจ้งเตือนว่าข้อมูลยังไม่ครบ
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text('กรุณากรอกข้อมูลให้ครบถ้วน'),
+                              ));
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromARGB(255, 184, 66, 231),
@@ -373,28 +406,6 @@ class _AdminAddDataState extends State<AdminAddData> {
                               fontSize: 20,
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-
-                    // ปุ่มย้อนกลับ
-                    Center(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return AdminWindow();
-                              },
-                            ),
-                          );
-                        },
-                        child: const Text('ย้อนกลับ'),
-                        style: TextButton.styleFrom(
-                          foregroundColor: Colors.blue,
                         ),
                       ),
                     ),
