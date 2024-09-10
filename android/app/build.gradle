@@ -37,19 +37,18 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        // Specify your unique Application ID
         applicationId "com.example.flutter_auth"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion 28
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        minSdkVersion 21  // กำหนดค่า minSdkVersion ที่แน่นอน
+        targetSdkVersion 31
+        versionCode flutterVersionCode.toInteger() // ใช้ค่า versionCode จาก local.properties
+        versionName flutterVersionName // ใช้ค่า versionName จาก local.properties
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            // ใช้ debug signing config สำหรับตอนนี้
             signingConfig signingConfigs.debug
         }
     }
@@ -61,6 +60,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.github.yalantis:ucrop:2.2.6'  // สำหรับการครอปรูป
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
