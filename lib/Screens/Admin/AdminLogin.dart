@@ -73,7 +73,11 @@ class AdminLogin extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
+<<<<<<< Updated upstream
                       return const Guest();
+=======
+                      return Guert();
+>>>>>>> Stashed changes
                     },
                   ),
                 );
