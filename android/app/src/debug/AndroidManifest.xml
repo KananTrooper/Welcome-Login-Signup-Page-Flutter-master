@@ -1,7 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flutter_auth">
-    <!-- Flutter needs it to communicate with the running application
-         to allow setting breakpoints, to provide hot reload, etc.
-    -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+  
+    <!-- สิทธิ์ในการอ่านและเขียนข้อมูลลงใน storage -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+        android:name="io.flutter.app.FlutterApplication"
+        android:label="flutter_auth"
+        android:icon="@mipmap/ic_launcher">
+        
+        <!-- กำหนด Activity ที่ใช้ในการครอบรูป -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+    </application>
 </manifest>

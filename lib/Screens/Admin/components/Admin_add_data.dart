@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Admin/components/Admin_window.dart';
+import 'package:flutter_auth/Screens/Admin/components/imagepicker.dart';
 import 'package:flutter_auth/constants.dart';
 
 class AdminAddData extends StatefulWidget {
@@ -84,6 +85,14 @@ class _AdminAddDataState extends State<AdminAddData> {
                     // ปุ่มเพิ่มรูปภาพ
                     ElevatedButton(
                       onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return ImagePickerAndCropper();
+                            },
+                          ),
+                        );
                         // โค้ดสำหรับเพิ่มรูปภาพ
                       },
                       style: ElevatedButton.styleFrom(
