@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auth/constants.dart';
 
 class AdminDeleteData extends StatefulWidget {
+  const AdminDeleteData({super.key});
+
   @override
   _AdminDeleteDataState createState() => _AdminDeleteDataState();
 }
@@ -20,7 +22,7 @@ class _AdminDeleteDataState extends State<AdminDeleteData> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Delete Data'),
+        title: const Text('Admin Delete Data'),
         backgroundColor: kPrimaryColor,
       ),
       body: ListView.builder(
@@ -29,7 +31,7 @@ class _AdminDeleteDataState extends State<AdminDeleteData> {
           return ListTile(
             title: Text(items[index]),
             trailing: IconButton(
-              icon: Icon(Icons.delete, color: Colors.red),
+              icon: const Icon(Icons.delete, color: Colors.red),
               onPressed: () => _showDeleteConfirmationDialog(index),
             ),
           );
@@ -43,17 +45,17 @@ class _AdminDeleteDataState extends State<AdminDeleteData> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirm Deletion'),
+          title: const Text('Confirm Deletion'),
           content: Text('Are you sure you want to delete "${items[index]}"?'),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Delete'),
+              child: const Text('Delete'),
               onPressed: () {
                 _deleteItem(index);
                 Navigator.of(context).pop();

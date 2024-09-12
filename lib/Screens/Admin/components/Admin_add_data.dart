@@ -64,15 +64,15 @@ class _AdminAddDataState extends State<AdminAddData> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: SingleChildScrollView(
             child: Center(
               child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 500.0),
+                constraints: const BoxConstraints(maxWidth: 500.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       "เพิ่มข้อมูลผู้ป่วย",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -80,7 +80,7 @@ class _AdminAddDataState extends State<AdminAddData> {
                         color: Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // ปุ่มเพิ่มรูปภาพ
                     ElevatedButton(
@@ -90,19 +90,19 @@ class _AdminAddDataState extends State<AdminAddData> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                       ),
-                      child: Text(
+                      child: const Text(
                         "เพิ่มรูปภาพ",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // ตัวเลือกคำนำหน้าชื่อ
                     Row(
                       children: [
                         DropdownButton<String>(
                           value: _selectedPrefix,
-                          hint: Text("นาย/นาง/นางสาว"),
+                          hint: const Text("นาย/นาง/นางสาว"),
                           items: <String>[
                             'นาย',
                             'นาง',
@@ -119,14 +119,14 @@ class _AdminAddDataState extends State<AdminAddData> {
                             });
                           },
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           child:
                               _buildTextField(_nameController, "ชื่อผู้ป่วย"),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // บรรทัดที่ 2: เพศและวันเดือนปีเกิด
                     Row(
@@ -136,13 +136,13 @@ class _AdminAddDataState extends State<AdminAddData> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
+                              const Text(
                                 "เพศ",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Row(
                                 children: <Widget>[
-                                  Text("ชาย"),
+                                  const Text("ชาย"),
                                   Radio<String>(
                                     value: 'ชาย',
                                     groupValue: _selectedGender,
@@ -152,8 +152,8 @@ class _AdminAddDataState extends State<AdminAddData> {
                                       });
                                     },
                                   ),
-                                  SizedBox(width: 10),
-                                  Text("หญิง"),
+                                  const SizedBox(width: 10),
+                                  const Text("หญิง"),
                                   Radio<String>(
                                     value: 'หญิง',
                                     groupValue: _selectedGender,
@@ -168,27 +168,27 @@ class _AdminAddDataState extends State<AdminAddData> {
                             ],
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           flex: 3,
                           child: ElevatedButton(
                             onPressed: () => _selectDate(context),
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.black,
+                              backgroundColor: Colors.white,
+                              minimumSize: const Size(double.infinity, 50),
+                              elevation: 2,
+                            ),
                             child: Text(
                               _selectedDate == null
                                   ? 'เลือกวัน/เดือน/ปี'
                                   : '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}',
                             ),
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.black,
-                              backgroundColor: Colors.white,
-                              minimumSize: Size(double.infinity, 50),
-                              elevation: 2,
-                            ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // บรรทัดที่ 3: สถานะสมรสและสถานะการศึกษา
                     Row(
@@ -198,13 +198,13 @@ class _AdminAddDataState extends State<AdminAddData> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
+                              const Text(
                                 "สถานะสมรส",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Row(
                                 children: <Widget>[
-                                  Text("โสด"),
+                                  const Text("โสด"),
                                   Radio<String>(
                                     value: 'โสด',
                                     groupValue: _selectedMaritalStatus,
@@ -214,8 +214,8 @@ class _AdminAddDataState extends State<AdminAddData> {
                                       });
                                     },
                                   ),
-                                  SizedBox(width: 10),
-                                  Text("สมรส"),
+                                  const SizedBox(width: 10),
+                                  const Text("สมรส"),
                                   Radio<String>(
                                     value: 'สมรส',
                                     groupValue: _selectedMaritalStatus,
@@ -230,19 +230,19 @@ class _AdminAddDataState extends State<AdminAddData> {
                             ],
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           flex: 3,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
+                              const Text(
                                 "สถานะการศึกษา",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               DropdownButton<String>(
                                 value: _selectedEducationStatus,
-                                hint: Text("เลือกสถานะการศึกษา"),
+                                hint: const Text("เลือกสถานะการศึกษา"),
                                 items: <String>[
                                   'ประถมศึกษา',
                                   'มัธยมศึกษา',
@@ -266,19 +266,19 @@ class _AdminAddDataState extends State<AdminAddData> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // ปุ่มเลือกกรุ๊ปเลือด
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "กรุ๊ปเลือด",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         DropdownButton<String>(
                           value: _selectedBloodGroup,
-                          hint: Text("เลือกกรุ๊ปเลือด"),
+                          hint: const Text("เลือกกรุ๊ปเลือด"),
                           items: <String>[
                             'A',
                             'B',
@@ -298,46 +298,46 @@ class _AdminAddDataState extends State<AdminAddData> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // ช่องกรอกโรคประจำตัว
                     _buildTextField(_medicalConditionController, "โรคประจำตัว"),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // ช่องกรอกประวัติแพ้ยา
                     _buildTextField(_drugAllergyController, "ประวัติแพ้ยา"),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // ส่วนข้อมูลอื่นๆ
                     _buildTextField(_addressController, "ที่อยู่"),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(
                       children: <Widget>[
                         Expanded(
                           child: _buildTextField(_cityController, "เมือง"),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           child: _buildTextField(_districtController, "อำเภอ"),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           child:
                               _buildTextField(_subDistrictController, "ตำบล"),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // แก้ไขช่องกรอกเบอร์โทรศัพท์ให้มีตัวอย่างแสดง
                     _buildTextField(_phoneController,
                         "เบอร์โทรศัพท์ (ตัวอย่าง: 0812345678)"),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // แก้ไขช่องกรอก "ที่อยู่ญาติ" เป็น "เบอร์ติดต่อญาติ"
                     _buildTextField(_relativePhoneController,
                         "เบอร์ติดต่อญาติ (ตัวอย่าง: 0812345678)"),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // เพิ่มปุ่ม "ตำแหน่งที่อยู่"
                     ElevatedButton(
@@ -347,12 +347,12 @@ class _AdminAddDataState extends State<AdminAddData> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                       ),
-                      child: Text(
+                      child: const Text(
                         "ตำแหน่งที่อยู่",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // ปุ่มเพิ่มข้อมูล
                     Center(
@@ -389,20 +389,21 @@ class _AdminAddDataState extends State<AdminAddData> {
                             } else {
                               // แสดงการแจ้งเตือนว่าข้อมูลยังไม่ครบ
                               ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
+                                  .showSnackBar(const SnackBar(
                                 content: Text('กรุณากรอกข้อมูลให้ครบถ้วน'),
                               ));
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 184, 66, 231),
+                            backgroundColor:
+                                const Color.fromARGB(255, 184, 66, 231),
                             elevation: 0,
-                            minimumSize: Size(double.infinity, 50),
+                            minimumSize: const Size(double.infinity, 50),
                           ),
-                          child: Text(
+                          child: const Text(
                             "เพิ่มข้อมูล",
                             style: TextStyle(
-                              color: const Color.fromARGB(255, 0, 0, 0),
+                              color: Color.fromARGB(255, 0, 0, 0),
                               fontSize: 20,
                             ),
                           ),
@@ -424,7 +425,7 @@ class _AdminAddDataState extends State<AdminAddData> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Color(0xFFD3D3D3),
             blurRadius: 20.0,
@@ -436,9 +437,10 @@ class _AdminAddDataState extends State<AdminAddData> {
         controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.grey),
+          hintStyle: const TextStyle(color: Colors.grey),
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         ),
         keyboardType:
             hintText.contains("เบอร์โทรศัพท์") || hintText.contains("อายุ")

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 //import 'package:flutter_auth/Screens/Admin/AdminLogin.dart';
 //import 'package:flutter_auth/Screens/Guert/Guert.dart';
 
@@ -41,8 +40,8 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('ตั้งค่า'),
+              leading: const Icon(Icons.settings),
+              title: const Text('ตั้งค่า'),
               onTap: () {
                 Navigator.pop(context);
                 //Navigator.push(
@@ -56,8 +55,8 @@ class WelcomeScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('ออกจากระบบ'),
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('ออกจากระบบ'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -65,7 +64,7 @@ class WelcomeScreen extends StatelessWidget {
                 }));
               },
             ),
-            ListTile(
+            const ListTile(
                 //leading: Icon(Icons.qr_code),
                 //title: Text('ผู้เยี่ยมชม'),
                 //onTap: () {

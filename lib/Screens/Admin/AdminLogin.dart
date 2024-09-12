@@ -16,7 +16,7 @@ class AdminLogin extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title: Text(
+        title: const Text(
             'ยินดีต้อนรับ (แอปพลิเคชันช่วยหาเส้นทางกลับบ้านของผู้ป่วยอัลไซเมอร์ด้วยคิวอาร์โค้ด)'),
       ),
       drawer: Drawer(
@@ -40,8 +40,8 @@ class AdminLogin extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('ออกจากระบบ'),
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('ออกจากระบบ'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -50,8 +50,8 @@ class AdminLogin extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text('แอดมิน'),
+              leading: const Icon(Icons.account_circle),
+              title: const Text('แอดมิน'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -65,8 +65,8 @@ class AdminLogin extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.qr_code),
-              title: Text('ผู้เยี่ยมชม'),
+              leading: const Icon(Icons.qr_code),
+              title: const Text('ผู้เยี่ยมชม'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -140,7 +140,7 @@ class AdminLogin extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return AdminWindow();
+                          return const AdminWindow();
                         },
                       ),
                     );
@@ -162,7 +162,7 @@ class AdminLogin extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return AdminWindow();
+                        return const AdminWindow();
                       },
                     ),
                   );

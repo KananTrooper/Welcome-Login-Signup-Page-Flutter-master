@@ -16,8 +16,8 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 184, 66, 231),
-        title: Text(
+        backgroundColor: const Color.fromARGB(255, 184, 66, 231),
+        title: const Text(
             'ยินดีต้อนรับ (แอปพลิเคชันช่วยหาเส้นทางกลับบ้านของผู้ป่วยอัลไซเมอร์ด้วยคิวอาร์โค้ด)'),
       ),
       drawer: Drawer(
@@ -41,8 +41,8 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('ออกจากระบบ'),
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('ออกจากระบบ'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -51,8 +51,8 @@ class LoginScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text('ผู้ดูแล'),
+              leading: const Icon(Icons.account_circle),
+              title: const Text('ผู้ดูแล'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -66,8 +66,8 @@ class LoginScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.qr_code),
-              title: Text('ผู้ป่วย'),
+              leading: const Icon(Icons.qr_code),
+              title: const Text('ผู้ป่วย'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(

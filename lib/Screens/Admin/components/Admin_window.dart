@@ -8,6 +8,8 @@ import 'package:flutter_auth/constants.dart';
 import 'package:flutter_auth/model/patientdata.dart';
 
 class AdminWindow extends StatefulWidget {
+  const AdminWindow({super.key});
+
   @override
   _AdminWindowState createState() => _AdminWindowState();
 }
@@ -27,7 +29,7 @@ class _AdminWindowState extends State<AdminWindow> {
       appBar: AppBar(
         title: const Text(
           'Admin Window',
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white),
         ),
         backgroundColor: kPrimaryColor,
       ),
@@ -52,8 +54,8 @@ class _AdminWindowState extends State<AdminWindow> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('ออกจากระบบ'),
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('ออกจากระบบ'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -62,8 +64,8 @@ class _AdminWindowState extends State<AdminWindow> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text('แอดมิน'),
+              leading: const Icon(Icons.account_circle),
+              title: const Text('แอดมิน'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -77,8 +79,8 @@ class _AdminWindowState extends State<AdminWindow> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.qr_code),
-              title: Text('ผู้เยี่ยมชม'),
+              leading: const Icon(Icons.qr_code),
+              title: const Text('ผู้เยี่ยมชม'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -111,7 +113,7 @@ class _AdminWindowState extends State<AdminWindow> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return AdminAddData();
+                            return const AdminAddData();
                           },
                         ),
                       );
@@ -119,16 +121,16 @@ class _AdminWindowState extends State<AdminWindow> {
                         _addPatientData(patientData);
                       }
                     },
-                    child: Text('เพิ่ม'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                     ),
+                    child: const Text('เพิ่ม'),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -139,7 +141,7 @@ class _AdminWindowState extends State<AdminWindow> {
                     final patient = patientDataList[index];
                     return Card(
                       elevation: 2.0,
-                      margin: EdgeInsets.symmetric(vertical: 8.0),
+                      margin: const EdgeInsets.symmetric(vertical: 8.0),
                       child: ListTile(
                         title: Text('${patient.prefix} ${patient.name}'),
                         subtitle: Column(
@@ -162,13 +164,13 @@ class _AdminWindowState extends State<AdminWindow> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: Icon(Icons.edit, color: Colors.blue),
+                              icon: const Icon(Icons.edit, color: Colors.blue),
                               onPressed: () async {
                                 final updatedPatient =
                                     await Navigator.push<PatientData>(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => AdminAddData(),
+                                    builder: (context) => const AdminAddData(),
                                     settings: RouteSettings(
                                       arguments:
                                           patient, // ส่งข้อมูลผู้ป่วยไปยังหน้ากรอกข้อมูล
@@ -185,7 +187,7 @@ class _AdminWindowState extends State<AdminWindow> {
                               },
                             ),
                             IconButton(
-                              icon: Icon(Icons.delete, color: Colors.red),
+                              icon: const Icon(Icons.delete, color: Colors.red),
                               onPressed: () {
                                 setState(() {
                                   patientDataList.removeAt(index); // ลบข้อมูล
