@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Admin/AdminLogin.dart';
 import 'package:flutter_auth/Screens/Admin/components/Admin_add_data.dart';
 import 'package:flutter_auth/Screens/Admin/components/Admin_delete_data.dart';
+import 'package:flutter_auth/Screens/Admin/components/Admin_show_user.dart';
 import 'package:flutter_auth/Screens/Guest/Guest.dart';
 import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/constants.dart';
 import 'package:flutter_auth/model/patientdata.dart';
+import 'package:flutter_auth/model/userdata.dart';
 
 class AdminWindow extends StatefulWidget {
   const AdminWindow({super.key});
@@ -16,10 +18,17 @@ class AdminWindow extends StatefulWidget {
 
 class _AdminWindowState extends State<AdminWindow> {
   List<PatientData> patientDataList = [];
+  List<Userdata> userList = []; // Added this to store user data
 
   void _addPatientData(PatientData patientData) {
     setState(() {
       patientDataList.add(patientData);
+    });
+  }
+
+  void _addUser(Userdata userData) {
+    setState(() {
+      userList.add(userData);
     });
   }
 
@@ -128,6 +137,40 @@ class _AdminWindowState extends State<AdminWindow> {
                   ),
                 ),
                 const SizedBox(width: 10),
+                // ปุ่มผู้ใช้
+                SizedBox(
+                  width: 100,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // สร้างรายการผู้ใช้ทดสอบ
+                      Userdata selectedUser = Userdata(
+                        name: 'ชื่อผู้ใช้',
+                        phone: 'เบอร์โทร',
+                        imageUrl: 'ลิงก์รูปภาพ',
+                        isAuthorized: true,
+                      );
+
+                      // นำผู้ใช้ทดสอบไปยังหน้ารายการผู้ใช้
+                      userList.add(selectedUser);
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return AdminShowUser(
+                                users:
+                                    userList); // ส่งรายการผู้ใช้ไปยัง AdminShowUser
+                          },
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                    ),
+                    child: const Text('ผู้ใช้'),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 20),
