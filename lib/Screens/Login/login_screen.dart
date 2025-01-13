@@ -3,6 +3,7 @@ import 'package:flutter_auth/Screens/Admin/AdminLogin.dart';
 import 'package:flutter_auth/Screens/Guest/Guest.dart';
 
 import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
+import 'package:flutter_auth/constants.dart';
 import 'package:flutter_auth/responsive.dart';
 
 import '../../components/background.dart';
@@ -16,9 +17,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 184, 66, 231),
-        title: const Text(
-            'ยินดีต้อนรับ (แอปพลิเคชันช่วยหาเส้นทางกลับบ้านของผู้ป่วยอัลไซเมอร์ด้วยคิวอาร์โค้ด)'),
+        backgroundColor: kPrimaryColor,
       ),
       drawer: Drawer(
         child: ListView(

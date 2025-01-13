@@ -15,10 +15,12 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: Colors.transparent,
         //title: Text(
         //'WELCOME TO (แอปพลิเคชันช่วยหาเส้นทางกลับบ้านของผู้ป่วยอัลไซเมอร์ด้วยคิวอาร์โค้ด)'),
       ),
+      // Drawer ของทุกหน้า
+
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,

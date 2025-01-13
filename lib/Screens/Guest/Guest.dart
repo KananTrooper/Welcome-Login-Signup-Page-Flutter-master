@@ -1,17 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/Screens/Guest/components/Qrcodescan.dart';
+import 'package:flutter_auth/constants.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter_auth/Screens/Admin/AdminLogin.dart';
 import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 
-class Guest extends StatelessWidget {
+class Guest extends StatefulWidget {
   const Guest({Key? key}) : super(key: key);
+
+  @override
+  _GuestState createState() => _GuestState();
+}
+
+class _GuestState extends State<Guest> {
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  QRViewController? controller;
+  String? qrText;
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
+  void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        qrText = scanData.code;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 184, 66, 231),
-        // title: Text(
-        // 'WELCOME TO (แอปพลิเคชันช่วยหาเส้นทางกลับบ้านของผู้ป่วยอัลไซเมอร์ด้วยคิวอาร์โค้ด)'),
+        backgroundColor: kPrimaryColor,
       ),
       drawer: Drawer(
         child: ListView(
@@ -58,21 +83,6 @@ class Guest extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.qr_code),
-              title: const Text('ผู้เยี่ยมชม'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const Guest();
-                    },
-                  ),
-                );
-              },
-            ),
           ],
         ),
       ),
@@ -80,9 +90,14 @@ class Guest extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(
-              'assets/images/QR-code.jpg',
-              height: 400, // ปรับขนาดรูปภาพตามต้องการ
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return QRScannerScreen();
+                }));
+              },
+              child: const Text("เริ่มสแกน QR Code"),
             ),
             const SizedBox(height: 20),
             TextButton(

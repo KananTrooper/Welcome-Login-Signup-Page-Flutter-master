@@ -25,8 +25,13 @@ class LoginAndSignupBtn extends StatelessWidget {
               ),
             );
           },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kPrimaryLightColor,
+            elevation: 0,
+          ),
           child: Text(
             "เข้าใช้งาน".toUpperCase(),
+            style: const TextStyle(color: Colors.black, fontFamily: 'Raleway'),
           ),
         ),
         const SizedBox(height: 16),
@@ -62,8 +67,13 @@ class LoginAndSignupBtn extends StatelessWidget {
               ),
             );
           },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kPrimaryLightColor,
+            elevation: 0,
+          ),
           child: Text(
             "ผู้ดูแล".toUpperCase(),
+            style: const TextStyle(color: Colors.black),
           ),
         ),
         const SizedBox(height: 16),

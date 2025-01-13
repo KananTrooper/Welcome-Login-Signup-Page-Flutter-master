@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^1.0.5
   flutter_svg: ^1.1.0
   form_field_validator: ^1.1.0
+  qr_code_scanner: ^1.0.0
   shared_preferences: ^2.3.2
 
 dev_dependencies:
@@ -39,15 +40,33 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  fonts:
+    - family: Anuphan
+      fonts:
+        - asset: custom_fonts/fonts/Anuphan-Regular.otf
+        - asset: custom_fonts/fonts/Anuphan-Bold.otf
+          weight: 700
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/NotoSansThai-Regular.ttf
+        - asset: assets/fonts/NotoSansThai-Bold.ttf
+          weight: 700
+    - family: NotoSarif
+      fonts:
+        - asset: assets/fonts/NotoSerif-VariableFont_wdth,wght.ttf
+        - asset: assets/fonts/NotoSerif-Italic-VariableFont_wdth,wght.ttf
+          style: italic
+
+  assets:
+    - assets/images/
+    - assets/icons/
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/images/
-    - assets/icons/
   #  - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
