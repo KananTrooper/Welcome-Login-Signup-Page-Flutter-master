@@ -95,51 +95,62 @@ class AdminShowUser extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 8.0),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Row(
+                child: Column(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start, // Align items to the left
                   children: [
-                    // Profile photo
-                    CircleAvatar(
-                      radius: screenSize.width *
-                          0.075, // Adjust size based on screen width
-                      backgroundImage: NetworkImage(user.imageUrl),
-                    ),
-                    const SizedBox(width: 10),
-                    // Name and Phone
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            user.name,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenSize.width *
-                                  0.04, // Adjust font size based on screen width
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            user.phone,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: screenSize.width *
-                                  0.035, // Adjust font size based on screen width
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Switch (enabled/disabled)
-                    Switch(
-                      value: user.isAuthorized,
-                      onChanged: (bool value) {
-                        // Handle status change
-                        // Update the user authorization status here
-                      },
-                    ),
-                    // Approve/Reject buttons
                     Row(
+                      children: [
+                        // Profile photo
+                        CircleAvatar(
+                          radius: screenSize.width *
+                              0.075, // Adjust size based on screen width
+                          backgroundImage: NetworkImage(user.imageUrl),
+                        ),
+                        const SizedBox(width: 10),
+                        // Name and Phone
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                user.name,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: screenSize.width *
+                                      0.04, // Adjust font size based on screen width
+                                ),
+                                overflow:
+                                    TextOverflow.ellipsis, // Prevent overflow
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                user.phone,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: screenSize.width *
+                                      0.035, // Adjust font size based on screen width
+                                ),
+                                overflow:
+                                    TextOverflow.ellipsis, // Prevent overflow
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Switch (enabled/disabled)
+                        Switch(
+                          value: user.isAuthorized,
+                          onChanged: (bool value) {
+                            // Handle status change
+                            // Update the user authorization status here
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    // Approve/Reject buttons in a Column (no more Row)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         ElevatedButton(
                           onPressed: () {
@@ -154,7 +165,7 @@ class AdminShowUser extends StatelessWidget {
                             style: TextStyle(fontSize: screenSize.width * 0.03),
                           ),
                         ),
-                        const SizedBox(width: 5),
+                        const SizedBox(height: 5),
                         ElevatedButton(
                           onPressed: () {
                             // Reject action

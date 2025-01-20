@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/Admin/components/Admin_window.dart';
 import 'package:flutter_auth/constants.dart';
-import 'package:flutter_auth/model/patientdata.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
 
 class AdminAddData extends StatefulWidget {
   const AdminAddData({Key? key}) : super(key: key);
@@ -17,43 +19,107 @@ class _AdminAddDataState extends State<AdminAddData> {
   String? _selectedEducationStatus;
   String? _selectedPrefix;
   String? _selectedBloodGroup;
+  File? _image;
 
-  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
-  final TextEditingController _districtController = TextEditingController();
-  final TextEditingController _subDistrictController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
   final TextEditingController _relativePhoneController =
       TextEditingController();
   final TextEditingController _medicalConditionController =
       TextEditingController();
   final TextEditingController _drugAllergyController = TextEditingController();
-  final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _districtController = TextEditingController();
+  final TextEditingController _subDistrictController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _birthdateController = TextEditingController();
 
-  void _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != _selectedDate) {
+  Future<void> _pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
       setState(() {
-        _selectedDate = picked;
-        _calculateAge(picked);
+        _image = File(pickedFile.path);
       });
     }
   }
 
-  void _calculateAge(DateTime birthDate) {
-    final DateTime today = DateTime.now();
-    int age = today.year - birthDate.year;
-    if (today.month < birthDate.month ||
-        (today.month == birthDate.month && today.day < birthDate.day)) {
-      age--;
+  Future<void> _submitData() async {
+    final request = http.MultipartRequest(
+        'POST', Uri.parse('http://localhost:8080/api/patients/register'));
+
+    if (_addressController.text.isNotEmpty) {
+      request.fields['address'] = _addressController.text;
     }
-    _ageController.text = '$age';
+    if (_selectedGender != null) {
+      request.fields['gender'] = _selectedGender!;
+    }
+    if (_ageController.text.isNotEmpty) {
+      request.fields['age'] = _ageController.text;
+    }
+    if (_selectedMaritalStatus != null) {
+      request.fields['maritalStatus'] = _selectedMaritalStatus!;
+    }
+    if (_selectedEducationStatus != null) {
+      request.fields['educationLevel'] = _selectedEducationStatus!;
+    }
+    if (_selectedBloodGroup != null) {
+      request.fields['bloodType'] = _selectedBloodGroup!;
+    }
+    if (_medicalConditionController.text.isNotEmpty) {
+      request.fields['chronicDiseases'] = _medicalConditionController.text;
+    }
+    if (_drugAllergyController.text.isNotEmpty) {
+      request.fields['drugAllergies'] = _drugAllergyController.text;
+    }
+    if (_relativePhoneController.text.isNotEmpty) {
+      request.fields['relativePhoneNumber'] = _relativePhoneController.text;
+    }
+    if (_cityController.text.isNotEmpty) {
+      request.fields['city'] = _cityController.text;
+    }
+    if (_districtController.text.isNotEmpty) {
+      request.fields['district'] = _districtController.text;
+    }
+    if (_subDistrictController.text.isNotEmpty) {
+      request.fields['subDistrict'] = _subDistrictController.text;
+    }
+    if (_nameController.text.isNotEmpty) {
+      request.fields['name'] = _nameController.text;
+    }
+    if (_birthdateController.text.isNotEmpty) {
+      request.fields['birthdate'] = _birthdateController.text;
+    }
+
+    if (_image != null) {
+      request.files
+          .add(await http.MultipartFile.fromPath('image', _image!.path));
+    }
+
+    final response = await request.send();
+    if (response.statusCode == 200) {
+      // Handle success
+      Navigator.pop(context);
+    } else {
+      // Handle error
+      _showErrorDialog('Failed to submit data');
+    }
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Error'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -84,9 +150,7 @@ class _AdminAddDataState extends State<AdminAddData> {
 
                     // ปุ่มเพิ่มรูปภาพ
                     ElevatedButton(
-                      onPressed: () {
-                        // โค้ดสำหรับเพิ่มรูปภาพ
-                      },
+                      onPressed: _pickImage,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                       ),
@@ -102,7 +166,7 @@ class _AdminAddDataState extends State<AdminAddData> {
                       children: [
                         DropdownButton<String>(
                           value: _selectedPrefix,
-                          hint: const Text("นาย/นาง/นางสาว"),
+                          hint: const Text(""),
                           items: <String>[
                             'นาย',
                             'นาง',
@@ -137,7 +201,7 @@ class _AdminAddDataState extends State<AdminAddData> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               const Text(
-                                "เพศ",
+                                "เพศโดยกำเนิด",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Row(
@@ -202,30 +266,23 @@ class _AdminAddDataState extends State<AdminAddData> {
                                 "สถานะสมรส",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              Row(
-                                children: <Widget>[
-                                  const Text("โสด"),
-                                  Radio<String>(
-                                    value: 'โสด',
-                                    groupValue: _selectedMaritalStatus,
-                                    onChanged: (String? value) {
-                                      setState(() {
-                                        _selectedMaritalStatus = value;
-                                      });
-                                    },
-                                  ),
-                                  const SizedBox(width: 10),
-                                  const Text("สมรส"),
-                                  Radio<String>(
-                                    value: 'สมรส',
-                                    groupValue: _selectedMaritalStatus,
-                                    onChanged: (String? value) {
-                                      setState(() {
-                                        _selectedMaritalStatus = value;
-                                      });
-                                    },
-                                  ),
-                                ],
+                              DropdownButton<String>(
+                                value: _selectedMaritalStatus,
+                                hint: const Text("เลือกสถานะสมรส"),
+                                items: <String>[
+                                  'โสด',
+                                  'สมรส',
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    _selectedMaritalStatus = newValue;
+                                  });
+                                },
                               ),
                             ],
                           ),
@@ -268,33 +325,45 @@ class _AdminAddDataState extends State<AdminAddData> {
                     ),
                     const SizedBox(height: 20),
 
-                    // ปุ่มเลือกกรุ๊ปเลือด
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "กรุ๊ปเลือด",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                    // บรรทัดที่ 4: กรุ๊ปเลือดและอายุ
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              const Text(
+                                "กรุ๊ปเลือด",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              DropdownButton<String>(
+                                value: _selectedBloodGroup,
+                                hint: const Text("เลือกกรุ๊ปเลือด"),
+                                items: <String>[
+                                  'A',
+                                  'B',
+                                  'AB',
+                                  'O',
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    _selectedBloodGroup = newValue;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                        DropdownButton<String>(
-                          value: _selectedBloodGroup,
-                          hint: const Text("เลือกกรุ๊ปเลือด"),
-                          items: <String>[
-                            'A',
-                            'B',
-                            'AB',
-                            'O',
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _selectedBloodGroup = newValue;
-                            });
-                          },
+                        const SizedBox(width: 10),
+                        Expanded(
+                          flex: 3,
+                          child: _buildTextField(_ageController, "อายุ"),
                         ),
                       ],
                     ),
@@ -329,11 +398,6 @@ class _AdminAddDataState extends State<AdminAddData> {
                     ),
                     const SizedBox(height: 20),
 
-                    // แก้ไขช่องกรอกเบอร์โทรศัพท์ให้มีตัวอย่างแสดง
-                    _buildTextField(_phoneController,
-                        "เบอร์โทรศัพท์ (ตัวอย่าง: 0812345678)"),
-                    const SizedBox(height: 20),
-
                     // แก้ไขช่องกรอก "ที่อยู่ญาติ" เป็น "เบอร์ติดต่อญาติ"
                     _buildTextField(_relativePhoneController,
                         "เบอร์ติดต่อญาติ (ตัวอย่าง: 0812345678)"),
@@ -359,44 +423,10 @@ class _AdminAddDataState extends State<AdminAddData> {
                       child: SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
-                            // ตรวจสอบว่ามีข้อมูลสำคัญครบถ้วนหรือไม่
-                            if (_nameController.text.isNotEmpty &&
-                                _selectedGender != null &&
-                                _selectedDate != null) {
-                              // สร้างอ็อบเจกต์ PatientData
-                              final newPatient = PatientData(
-                                name: _nameController.text,
-                                gender: _selectedGender!,
-                                birthDate: _selectedDate!,
-                                maritalStatus: _selectedMaritalStatus ?? '',
-                                educationStatus: _selectedEducationStatus ?? '',
-                                prefix: _selectedPrefix ?? '',
-                                bloodGroup: _selectedBloodGroup ?? '',
-                                medicalCondition:
-                                    _medicalConditionController.text,
-                                drugAllergy: _drugAllergyController.text,
-                                address: _addressController.text,
-                                city: _cityController.text,
-                                district: _districtController.text,
-                                subDistrict: _subDistrictController.text,
-                                phone: _phoneController.text,
-                                relativePhone: _relativePhoneController.text,
-                              );
-
-                              // ส่งข้อมูลกลับไปยังหน้าก่อนหน้า
-                              Navigator.pop(context, newPatient);
-                            } else {
-                              // แสดงการแจ้งเตือนว่าข้อมูลยังไม่ครบ
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text('กรุณากรอกข้อมูลให้ครบถ้วน'),
-                              ));
-                            }
-                          },
+                          onPressed: _submitData,
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                const Color.fromARGB(255, 184, 66, 231),
+                                const Color.fromARGB(255, 71, 211, 71),
                             elevation: 0,
                             minimumSize: const Size(double.infinity, 50),
                           ),
@@ -448,5 +478,19 @@ class _AdminAddDataState extends State<AdminAddData> {
                 : TextInputType.text,
       ),
     );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
   }
 }

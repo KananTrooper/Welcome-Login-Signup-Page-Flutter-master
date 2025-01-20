@@ -1,23 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/Screens/Admin/components/Admin_window.dart';
 import 'package:flutter_auth/Screens/Guest/Guest.dart';
-
 import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter_auth/constants.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class AdminLogin extends StatelessWidget {
+class AdminLogin extends StatefulWidget {
+  @override
+  _AdminLoginState createState() => _AdminLoginState();
+}
+
+class _AdminLoginState extends State<AdminLogin> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  AdminLogin({super.key});
+  Future<void> _login() async {
+    final response = await http.post(
+      Uri.parse('http://localhost:8080/api/auth/login'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'email': _usernameController.text,
+        'password': _passwordController.text,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final responseData = jsonDecode(response.body);
+      if (responseData['role'] == 'admin') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => AdminWindow()),
+        );
+      } else {
+        _showErrorDialog('คุณไม่มีสิทธิ์เข้าถึง');
+      }
+    } else {
+      _showErrorDialog('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
+    }
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Error'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title: const Text(
-            'ยินดีต้อนรับ (แอปพลิเคชันช่วยหาเส้นทางกลับบ้านของผู้ป่วยอัลไซเมอร์ด้วยคิวอาร์โค้ด)'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -108,7 +153,14 @@ class AdminLogin extends StatelessWidget {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    prefixIcon: const Icon(Icons.person),
+                    prefixIcon: const Icon(
+                      Icons.person,
+                      color: Color.fromARGB(
+                          255, 0, 0, 0), // เปลี่ยนสีของ Icon ที่นี่
+                    ),
+                    filled: true, // เพิ่มบรรทัดนี้
+                    fillColor: const Color.fromARGB(
+                        255, 253, 253, 253), // เพิ่มบรรทัดนี้เพื่อกำหนดสี
                   ),
                 ),
               ),
@@ -122,7 +174,14 @@ class AdminLogin extends StatelessWidget {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    prefixIcon: const Icon(Icons.lock),
+                    prefixIcon: const Icon(
+                      Icons.lock,
+                      color: Color.fromARGB(
+                          255, 0, 0, 0), // เปลี่ยนสีของ Icon ที่นี่
+                    ),
+                    filled: true, // เพิ่มบรรทัดนี้
+                    fillColor: const Color.fromARGB(
+                        255, 255, 255, 255), // เพิ่มบรรทัดนี้เพื่อกำหนดสี
                   ),
                   obscureText: true,
                 ),
@@ -131,26 +190,14 @@ class AdminLogin extends StatelessWidget {
               SizedBox(
                 width: 500.0, // กำหนดความกว้างของปุ่ม
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Action when the button is pressed
-                    print('ชื่อผู้ใช้: ${_usernameController.text}');
-                    print('รหัสผ่าน: ${_passwordController.text}');
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const AdminWindow();
-                        },
-                      ),
-                    );
-                  },
+                  onPressed: _login,
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    backgroundColor: Colors.purple, // เปลี่ยนสีของปุ่มได้ที่นี่
+                    backgroundColor: const Color.fromARGB(
+                        255, 99, 93, 100), // เปลี่ยนสีของปุ่มได้ที่นี่
                   ),
                   child: const Text('เข้าใช้งาน'),
                 ),
@@ -170,7 +217,7 @@ class AdminLogin extends StatelessWidget {
                   // Action for registration
                 },
                 child: const Text(
-                  'ไม่มีไอดีใช่ไหม? ลงทะเบียน',
+                  '',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.underline,
